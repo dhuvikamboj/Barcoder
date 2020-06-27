@@ -6,15 +6,18 @@ import { IonicModule } from '@ionic/angular';
 
 import { FolderPageRoutingModule } from './folder-routing.module';
 
-import { FolderPage } from './folder.page';
-
+import { HomePage } from './home.page';
+import { QRCodeModule } from 'angularx-qrcode';
+ 
+ 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FolderPageRoutingModule
+    QRCodeModule,
+    FolderPageRoutingModule,
   ],
-  declarations: [FolderPage]
+  declarations: [HomePage]
 })
 export class FolderPageModule {}
