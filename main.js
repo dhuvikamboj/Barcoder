@@ -19,7 +19,6 @@ Object.keys(ifaces).forEach(function (ifname) {
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 var robot = require("robotjs");
-console.log(ips);
 
 const io = require("socket.io");
 const server = io.listen(2468);
@@ -29,10 +28,8 @@ const admin = server.on("connection", (socket) => {
     robot.keyTap("enter");
   });
   socket.on("ipaddress", function (data) {
-    console.log(data);
-
     data = JSON.parse(data);
-    if (data.type == "get") {
+    if (data.type === "get") {
       socket.emit("ipaddress", JSON.stringify(ips));
     }
   });
@@ -49,9 +46,9 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
- mainWindow.loadFile("www/index.html");
-// mainWindow.loadURL("http://localhost:8100");
-mainWindow.removeMenu();
+  mainWindow.loadFile("www/index.html");
+  // mainWindow.loadURL("http://localhost:8100");
+  mainWindow.removeMenu();
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -61,9 +58,7 @@ mainWindow.removeMenu();
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   server.on("connection", function (socket) {
-    socket.on("admin", function (data) {
-      console.log(data);
-    });
+    socket.on("admin", function (data) {});
   });
 
   createWindow();
@@ -71,7 +66,9 @@ app.whenReady().then(() => {
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0){
+      createWindow();
+    } 
   });
 });
 
@@ -79,7 +76,9 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin"){
+    app.quit();
+  } 
 });
 
 // In this file you can include the rest of your app's specific main process
